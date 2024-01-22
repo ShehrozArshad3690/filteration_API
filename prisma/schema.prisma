@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Patient {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  fname        String
+  lname        String
+  dob          String
+  age          Int
+  blood_group  String
+  gender       Gender
+  appointment  Appointment
+  phone_number BigInt      @unique
+  email        String      @unique
+  cnic         Int         @unique
+  address      String
+  reason       String
+  created_At   DateTime    @default(now())
+}
+
+enum Gender {
+  Male
+  Female
+}
+
+enum Appointment {
+  Physical
+  Virtual
+}
